@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./assets/icons/logo.svg" type="image/svg">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Les petits plats</title>
+</head>
+
+<body>
+    <header>
+        <img src="./assets/icons/logo.svg" alt="toque logo des petits plats">
+        <h1>Les petits plats</h1>
+    </header>
+    <main>
+        <!-- Barre de recherche principal -->
+        <div class="search-bar">
+            <input type="text" name="search" id="global-search" size="100" placeholder="Rechercher une recette">
+            <span id="magnifying-glass"><img src="./assets/icons/loupe.svg" alt="loupe"></span>
+        </div>
+
+        <!-- Bulle de filtres actives-->
+        <aside class="bubble-tag">
+        </aside>
+
+        <!-- Menu de selection filtres-->
+        <div id="secondary-filter">
+            <div class="dropdown" id="first-dropdown">
+                <div class="header-dropdown" id="first-header-dropdown">
+                    <label for="ingredients-input1">Ingrédients</label>
+                    <input type="text" name="ingredients-input1" id="ingredients-input1" class="little">
+                    <input type="text" name="ingredients-input2" id="ingredients-input2" class="big">
+                    <span id="ingredientsBtn"><img class="arrow-down" aria-label="ouverture fermeture menu de tri"
+                            alt="fleche direction bas" tabindex="0" src="assets/icons/arrow-down.svg"></span>
+                </div>
+                <div class="list_container" id="ingredients-container">
+                    <ul id="ingredients-list"></ul>
+                </div>
+            </div>
+            <div class="dropdown" id="secondary-dropdown">
+                <div class="header-dropdown" id="secondary-header-dropdown">
+                    <label for="appareils-input1">Appareils</label>
+                    <input type="text" name="appareils-input1" id="appareils-input1" class="little">
+                    <input type="text" name="appareils-input2" id="appareils-input2" class="big">
+                    <span id="appareilsBtn"><img class="arrow-down" aria-label="ouverture fermeture menu de tri"
+                            alt="fleche direction bas" tabindex="0" src="assets/icons/arrow-down.svg"></span>
+                </div>
+                <div class="list_container" id="appareils-container">
+                    <ul id="appareils-list"></ul>
+                </div>
+            </div>
+            <div class="dropdown" id="third-dropdown">
+                <div class="header-dropdown" id="third-header-dropdown">
+                    <label for="ustensiles-input1">Ustensiles</label>
+                    <input type="text" name="ustensiles-input1" id="ustensiles-input1" class="little">
+                    <input type="text" name="ustensiles-input2" id="ustensiles-input2" class="big">
+                    <span id="ustensilesBtn"><img class="arrow-down" aria-label="ouverture fermeture menu de tri"
+                            alt="fleche direction bas" tabindex="0" src="assets/icons/arrow-down.svg"></span>
+                </div>
+                <div class="list_container" id="ustensiles-container">
+                    <ul id="ustensiles-list"></ul>
+                </div>
+            </div>
+        </div>
+        <!-- Containeur des cartes recettes -->
+        <section class="card_container">
+            <!-- Template Card recette
+            <article class="card">
+                <div class="card_img">Image</div>
+                <div class="card_info">
+                    <div class="top_card_info">
+                        <h2>title</h2>
+                        <p>80 min</p>
+                    </div>
+                    <div class="bottom_card_info">
+                        <div class="info_ingredients"></div>
+                        <div class="info_description"></div>
+                    </div>
+                </div>
+                <p></p>
+            </article>
+            -->
+        </section>
+
+    </main>
+    <!--<script type="module" src="scripts/Api/api.js"></script>
+    <script type="module" src="scripts/Constructor/engine.js"></script>
+    <script type="module" src="scripts/Constructor/recipe.js"></script>-->
+    <script src="utils/dropdown.js"></script>
+    <script type="module" src="scripts/script.js"></script>
+    <!-- <script type="module" src="scripts/Constructor/main.js"></script>-->
+</body>
+
+
+</html>
