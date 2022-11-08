@@ -113,27 +113,72 @@ main {
   opacity: 1;
   transition: 0.3s;
 }
+.dropdown.resize {
+  width: 40%;
+}
 /* .... input des dropdown .... */
+#ingredients-input {
+  background-color: #3282f7;
+}
+#appareils-input {
+  background-color: #68d9a4;
+}
+#ustensiles-input {
+  background-color: #ed6454;
+}
 .little {
-  display: none;
+  height: 100%;
+  width: 80%;
+  color: white;
+  border: none;
+  font-size: medium;
+  outline: none;
+}
+
+.little::placeholder {
+  color: white;
+  font-size: medium;
+  border: none;
 }
 .big {
   display: none;
 }
 /* --- liste dropdown --- */
 ul {
+  width: 100%;
   padding: 0;
+  margin: 0;
+  display: flex;
+
+  justify-content: flex-start;
+  flex-wrap: wrap;
 }
 ul li {
+  max-height: 10%;
+  display: flex;
   list-style-type: none;
+  padding: 10px;
+  margin: 0;
+  width: 30%;
+  font-weight: 400;
+  font-size: 18px;
+  text-transform: capitalize;
 }
 .list_container {
   display: flex;
-  padding: 25px;
+  padding: 10px;
   border-radius: 5px;
+  padding: auto;
+}
+#ingredients-list {
+  overflow-y: scroll;
+}
+#ingredients-list::-webkit-scrollbar {
+  display: none;
 }
 .list_container ul {
   overflow: hidden;
+  max-height: 430px;
 }
 
 .rotate {

@@ -29,28 +29,40 @@ export class Main extends Engine {
 
     }
 
+    resetExtrudeurs() {
+        // --récup ustensils
+        this.ustensils = []                  //-----> USTENSILS
+        // --array ingrédients
+        this.ingredients = []                //-----> INGREDIENTS
+        // --array appareils
+        this.appliances = []                 //-----> APPAREILS
+    }
 
     /** Search */
     // 1 Ici le moteur de recherche (en 2 version) qui va "réécrire" this.result
     // 2 Appel des extrudeurs
-    search(searchInput) {
+    async search(e) {
         //....... ça veut dir qu'ici on va réécrire le this.result
-        this.result = this.engine_search(searchInput) //-------> de la class engin - là où sont les algos
-        // this.exctrudeurs()
+        this.result = this.engine_search(e) //-------> de la class engin - là où sont les algos
+        console.log(this.result);
+        //reset extrudeurs
+        this.resetExtrudeurs()
+        // on lance les extrudeurs
+        this.exctrudeurs()
         return true
     }
 
 
     /** Extrudeur */
     exctrudeurs() {
-
+        console.log(this.result);
         for (let i = 0; i < this.result.recipes.length; i++) {
             // alimente tab ustensils
-            console.log(this.result.recipes[i]);
+            //console.log(this.result.recipes[i]);
             this.ustensils = [...new Set([...this.ustensils, ...this.result.recipes[i].ustensils.map((u) => u.toLowerCase())])].sort()
-            console.log(this.ustensils);
+            //console.log(this.ustensils);
             // alimente tab appareils
-            console.log(this.result.recipes[i].appliance);
+            //console.log(this.result.recipes[i].appliance);
             this.appliance = this.result.recipes[i].appliance
             this.appliances = [...new Set([...this.appliances, this.appliance.toLowerCase()])].sort()
             // alimente tab ingrédients
@@ -68,6 +80,7 @@ export class Main extends Engine {
 
     // Main caller for display tag
     displayAlltags() {
+        console.log('dans displayAllTags');
         this.displayUstensilsList()
         this.displayIngredientsList()
         this.displayAppliancesList()
@@ -75,7 +88,7 @@ export class Main extends Engine {
 
     /** Displayer tag */
     displayUstensilsList() {
-        console.log(this.ustensils);
+        //console.log(this.ustensils);
         const ustensilsContainer = document.getElementById('ustensiles-list')
         for (let i = 0; i < this.ustensils.length; i++) {
             //console.log(ustensils[i]);
@@ -124,4 +137,6 @@ export class Main extends Engine {
         cardContaineur.insertAdjacentHTML('beforeend', forIndex)
 
     }
+
+
 }
