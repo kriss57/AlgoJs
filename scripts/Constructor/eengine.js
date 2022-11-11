@@ -24,37 +24,34 @@ export class Engine extends Api {
             console.log(list);
             list.innerHTML = ''
         }
+
     }
 
 
     engine_search(e) {
         // les algo
-        console.log(e);
 
 
         this.resetDisplayer()
         //reset newarray
         this.newAllRecipes = { recipes: [] }
 
-        //recherche dans this.allRecipes avec include()
+        //recherche dans this.allRecipes avec includes()
         for (let i = 0; i < this.allRecipes.recipes.length; i++) {
             if (this.allRecipes.recipes[i].name.toLowerCase().includes(e.target.value.toLowerCase())) {
                 this.newAllRecipes.recipes.push(this.allRecipes.recipes[i])
             }
-            // voir si il n'existe deja pas dans newarray
             if (this.allRecipes.recipes[i].description.toLowerCase().includes(e.target.value.toLowerCase())) {
                 this.newAllRecipes.recipes.push(this.allRecipes.recipes[i])
             }
 
             for (let j = 0; j < this.allRecipes.recipes[i].ingredients.length; j++) {
-                //console.log(this.allRecipes.recipes[i].ingredients[j].ingredient);
                 if (this.allRecipes.recipes[i].ingredients[j].ingredient.toLowerCase().includes(e.target.value.toLowerCase())) {
                     this.newAllRecipes.recipes.push(this.allRecipes.recipes[i])
                 }
             }
 
         }
-
 
         //Enleve les doublons du tableau
         let recipes = Array.from(new Set(this.newAllRecipes.recipes))

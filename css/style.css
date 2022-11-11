@@ -65,6 +65,9 @@ main {
   margin-right: 25px;
   z-index: 100;
 }
+.arrow-down {
+  cursor: pointer;
+}
 .header-dropdown {
   display: flex;
   justify-content: space-between;
@@ -149,7 +152,6 @@ ul {
   padding: 0;
   margin: 0;
   display: flex;
-
   justify-content: flex-start;
   flex-wrap: wrap;
 }
@@ -163,10 +165,10 @@ ul li {
   font-weight: 400;
   font-size: 18px;
   text-transform: capitalize;
+  cursor: pointer;
 }
 .list_container {
   display: flex;
-  padding: 10px;
   border-radius: 5px;
   padding: auto;
 }
@@ -196,23 +198,43 @@ ul li {
   width: 400px;
   height: 400px;
   margin-bottom: 30px;
-  border: solid 2px blueviolet;
   border-radius: 5px;
   text-overflow: clip;
-  word-wrap: break-word;
+  cursor: pointer;
   overflow: hidden;
 }
 .card_img {
-  height: 40%;
+  height: 50%;
   width: 100%;
   background-color: rgb(121, 124, 120);
 }
 
 .top_card_info {
   display: flex;
-  justify-content: space-around;
-  background-color: rgb(152, 240, 147);
+  justify-content: space-between;
   border-radius: 5px;
+}
+.top_card_info h2 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 16px;
+  padding: 20px;
+}
+.top_card_info p {
+  margin: 0;
+  font-weight: bold;
+  font-size: 18px;
+}
+.time {
+  display: flex;
+  width: 80px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+.card_info {
+  background-color: #e7e7e7;
+  height: 50%;
 }
 .bottom_card_info {
   display: flex;
@@ -226,6 +248,14 @@ ul li {
 }
 .info_description {
   width: 50%;
+  height: 35%;
   padding: 20px;
   font-size: 13px;
+}
+.info_description p {
+  /* à modifier selon vos besoins */
+  height: 87px;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

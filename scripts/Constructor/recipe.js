@@ -29,35 +29,34 @@ export class Recipe {
      */
     getRecipeCardDOM(ingredientsArr) {
 
-        let ingredient = this.ingredients[0].ingredient
-        let quantity = this.ingredients[0].quantity
-        let unit = this.ingredients[0].unit
-
 
         let ingredientList = ''
 
         for (let i = 0; i < ingredientsArr.length; i++) {
-            // console.log(ingredientsArr[i]);
-            // console.log(ingredientsArr[i].ingredient);
             ingredientList += `
-                <li><b>${ingredientsArr[i].ingredient}</b> : ${ingredientsArr[i].quantity !== undefined ? ingredientsArr[i].quantity : ''} ${ingredientsArr[i].unit !== undefined ? ingredientsArr[i].unit : ''}</li>
+                <li><b>${ingredientsArr[i].ingredient}</b>  ${ingredientsArr[i].quantity !== undefined ? `:` + ingredientsArr[i].quantity : ''} ${ingredientsArr[i].unit !== undefined ? ingredientsArr[i].unit : ''}</li>
            
             `
         }
 
         let card = `
            <article class="card">
-                <div class="card_img">Image</div>
+                <div class="card_img">
+                    <img src="https://source.unsplash.com/random/400x200/?sig=${this.id}" alt="${this.name}" >
+                </div>
                 <div class="card_info">
                     <div class="top_card_info">
                         <h2>${this.name}</h2>
-                        <p>${this.time} min</p>
+                        <div class='time'>
+                            <img src="../assets/icons/times.svg" alt="horloge" >
+                            <p>${this.time} min</p>
+                        </div>                  
                     </div>
                     <div class="bottom_card_info">
                         <div class="info_ingredients">
                         ${ingredientList}
                         </div>
-                        <div class="info_description">${this.description}</div>
+                        <div class="info_description"><p>${this.description}</p></div>
                     </div>
                 </div>
                 <p></p>
