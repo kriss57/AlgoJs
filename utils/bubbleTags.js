@@ -9,7 +9,7 @@ const displayBubbleTags = () => {
 
 }
 
-const resetDisplayerBubbleTags = () {
+const resetDisplayerBubbleTags = () => {
     //suprimmer les tags
     //reset les cards
 }

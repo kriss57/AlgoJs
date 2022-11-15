@@ -155,7 +155,7 @@ export class Engine extends Api {
         if (e.target.parentNode.id === 'ustensiles-list') {
             for (let i = 0; i < displayedArray.length; i++) {
                 for (let j = 0; j < displayedArray[i].ustensils.length; j++) {
-                    if (displayedArray.ustensils[j].toLowerCase().includes(selectedFilter.toLowerCase())) {
+                    if (displayedArray[i].ustensils[j].toLowerCase().includes(selectedFilter.toLowerCase())) {
                         this.newAllRecipes.recipes.push(displayedArray[i])
                     }
                 }
