@@ -38,34 +38,29 @@ export class Engine extends Api {
     engine_search(e) {
         // les algo
 
-
         this.resetDisplayer()
         //reset newarray
         this.newAllRecipes = { recipes: [] }
 
-        //recherche dans this.allRecipes avec includes()
-        for (let i = 0; i < this.allRecipes.recipes.length; i++) {
-            if (this.allRecipes.recipes[i].name.toLowerCase().includes(e.target.value.toLowerCase())) {
-                this.newAllRecipes.recipes.push(this.allRecipes.recipes[i])
-            }
-            if (this.allRecipes.recipes[i].description.toLowerCase().includes(e.target.value.toLowerCase())) {
-                this.newAllRecipes.recipes.push(this.allRecipes.recipes[i])
-            }
+        let inputUser = e.target.value.toLowerCase()
+        let data = this.allRecipes.recipes
 
-            for (let j = 0; j < this.allRecipes.recipes[i].ingredients.length; j++) {
-                if (this.allRecipes.recipes[i].ingredients[j].ingredient.toLowerCase().includes(e.target.value.toLowerCase())) {
-                    this.newAllRecipes.recipes.push(this.allRecipes.recipes[i])
-                }
-            }
+        // recherche recettes name
+        let nameSearch = data.filter(el => el.name.toLowerCase().includes(inputUser))
+        // recherche recette description
+        let descSearch = data.filter(el => el.description.toLowerCase().includes(inputUser))
+        //recherche recette ingrédients
+        let ing = data.filter(el => {
+            return el.ingredients.find(element => element.ingredient.toLowerCase().includes(inputUser))
+        })
 
-        }
+        let arr = this.newAllRecipes.recipes.concat(nameSearch, descSearch, ing)
+        console.log(arr);
 
-        //Enleve les doublons du tableau
-        let recipes = Array.from(new Set(this.newAllRecipes.recipes))
+        // //Enleve les doublons du tableau
+        let recipes = Array.from(new Set(arr))
         //Convert en objet avant l'envoi
         this.newAllRecipes = { recipes }
-        console.log('dans Recherche principal');
-        console.log(this.newAllRecipes);
         // return un tableau de recette
         return this.newAllRecipes
 
