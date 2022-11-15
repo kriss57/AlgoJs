@@ -29,6 +29,7 @@ export class Main extends Engine {
     }
 
     resetExtrudeurs() {
+        console.log('resetExtrudeur vide les 3 tab');
         this.ustensils = []
         this.ingredients = []
         this.appliances = []
@@ -47,9 +48,62 @@ export class Main extends Engine {
         return true
     }
 
+    async searchTag(e) {
+        console.log('dans searchTag');
+        let listName = (e.target.parentNode.nextSibling.nextSibling.childNodes[1]);
+        console.log(listName);
+        //....... ça veut dir qu'ici on va réécrire le this.ingredients
+        if (listName.id == 'ingredients-list') {
+            this.ingredients = this.engine_search_tag(e)
+        }
+        if (listName.id == 'appareils-list') {
+            this.appliances = this.engine_search_tag(e)
+        }
+        if (listName.id == 'ustensiles-list') {
+            this.ustensils = this.engine_search_tag(e)
+        }
+        console.log(this.ingredients); // ici tableau reactif
+
+        // reset extrudeurs
+        //this.resetExtrudeurs()
+        this.resetListTag(listName)
+        // // afficher nouvelle liste
+        this.displaysListSelected(listName)
+        // on lance les extrudeurs
+        this.exctrudeurs()
+        //return true
+        console.log(this.ingredients); // ici tableau complet apres extrudeur
+
+    }
+
+    /**
+     * efface le contenu de la liste sélectionnée
+     * @param {HTML élément} listName 
+     */
+    resetListTag(listName) {
+        console.log('dans reset affichage liste tag');
+        listName.innerHTML = ""
+    }
+    /**
+     * Affiche le contenu de la liste sélectionnée
+     * @param {HTML élément} listName 
+     */
+    displaysListSelected(listName) {
+        console.log('dans affichage liste tag');
+        if (listName.id == 'ingredients-list') {
+            this.displayIngredientsList()
+        }
+        if (listName.id == 'appareils-list') {
+            this.displayAppliancesList()
+        }
+        if (listName.id == 'ustensiles-list') {
+            this.displayUstensilsList()
+        }
+    }
 
     /** Extrudeur */
     exctrudeurs() {
+        console.log('dans début exrtrudeur');
         console.log(this.result);
         for (let i = 0; i < this.result.recipes.length; i++) {
             // alimente tab ustensils
@@ -64,12 +118,12 @@ export class Main extends Engine {
 
             }
         }
-
+        console.log('dans fin extrudeur retourne les 3 tableau trier api');
     }
 
     // Main caller for display tag
     displayAlltags() {
-        console.log('dans displayAllTags');
+        console.log('dans affichage des 3 liste de tag');
         this.displayUstensilsList()
         this.displayIngredientsList()
         this.displayAppliancesList()
@@ -77,14 +131,25 @@ export class Main extends Engine {
 
     //  Reset start after delete user input if < 3
     async resetStart() {
+        console.log('dans resetStart');
         await this.start()
         this.resetDisplayer()
         this.displayAlltags()
         this.displayRecipeCard()
     }
 
+    resetStartTag(e) {
+        console.log('dans reset startTag'); ('')
+        let listName = (e.target.parentNode.nextSibling.nextSibling.childNodes[1]);
+        // reset la liste
+        this.resetListTag(listName)
+        // afficher nouvelle liste
+        this.displaysListSelected(listName)
+    }
+
     /** Displayer tag */
     displayUstensilsList() {
+        console.log('dans affichage liste ustensils api');
         const ustensilsContainer = document.getElementById('ustensiles-list')
         for (let i = 0; i < this.ustensils.length; i++) {
             const ustensilTemplate = `<li>${this.ustensils[i]}</li>`
@@ -94,6 +159,7 @@ export class Main extends Engine {
     }
 
     displayIngredientsList() {
+        console.log('dans affichage liste ingredient api');
         const ingredientsContainer = document.getElementById('ingredients-list')
         for (let i = 0; i < this.ingredients.length; i++) {
             const ingredientTemplate = `<li class='filter_select'>${this.ingredients[i]}</li>`
@@ -103,6 +169,7 @@ export class Main extends Engine {
     }
 
     displayAppliancesList() {
+        console.log('dans affichage liste appliances api');
         const appliancesContainer = document.getElementById('appareils-list')
         for (let i = 0; i < this.appliances.length; i++) {
             const applianceTemplate = `<li class='filter_select'>${this.appliances[i]}</li>`
@@ -134,6 +201,16 @@ export class Main extends Engine {
             cardContaineur.insertAdjacentHTML('beforeend', message)
         }
 
+    }
+
+    searchKeyword(e) {
+
+        this.result = this.search_by_keyword(e)
+        // reset extrudeurs
+        this.resetExtrudeurs()
+        // on lance les extrudeurs
+        this.exctrudeurs()
+        return true
     }
 
 }

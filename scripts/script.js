@@ -16,8 +16,6 @@ main.displayRecipeCard()
 const searchInput = document.getElementById('global-search')
 searchInput.addEventListener('input', (e) => {
 
-    console.log(e.target.value);
-    console.log(searchInput);
     if (e.target.value.length >= 3) {
         main.search(e)
             .then(() => {
@@ -31,3 +29,32 @@ searchInput.addEventListener('input', (e) => {
     }
 })
 
+//Ajout des listener sur les inputs tags
+const inputIngredient = document.getElementById('ingredients-input')
+const inputAppareils = document.getElementById('appareils-input')
+const inputUstensils = document.getElementById('ustensiles-input')
+
+inputIngredient.addEventListener('input', (e) => { main.searchTag(e) })
+inputAppareils.addEventListener('input', (e) => { main.searchTag(e) })
+inputUstensils.addEventListener('input', (e) => { main.searchTag(e) })
+
+//Ajout des listener sur les tags clické
+const ingredientsTags = document.getElementById('ingredients-list')
+const appareilsTags = document.getElementById('appareils-list')
+const ustensilsTags = document.getElementById('ustensiles-list')
+
+ingredientsTags.addEventListener('click', (e) => {
+    main.searchKeyword(e);
+    main.displayAlltags()
+    main.displayRecipeCard()
+})
+appareilsTags.addEventListener('click', (e) => {
+    main.searchKeyword(e);
+    main.displayAlltags()
+    main.displayRecipeCard()
+})
+ustensilsTags.addEventListener('click', (e) => {
+    main.searchKeyword(e);
+    main.displayAlltags()
+    main.displayRecipeCard()
+})

@@ -30,7 +30,7 @@ const toggleDropdown = (container, dropdown) => {
 }
 for (let i = 0; i < arrowBtn.length; i++) {
     arrowBtn[i].addEventListener('click', (e) => {
-        console.log(e.target.parentNode.id);
+        // console.log(e.target.parentNode.id);
         if (e.target.parentNode.id === 'ingredientsBtn') {
             toggleDropdown(ingredientsContainer, ingredientsDropdown)
             resetDropdown(appareilsDropdown, appareilsContainer)

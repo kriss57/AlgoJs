@@ -259,3 +259,22 @@ ul li {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+/* ---- Bubble tags ---- */
+.bubble_tag {
+  height: 50px;
+  width: 100px;
+  background-color: #3282f7;
+  margin-bottom: 25px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.bubble_closed {
+  height: 20px;
+  width: 20px;
+}
+.bubble_text {
+  color: white;
+  font-size: small;
+}

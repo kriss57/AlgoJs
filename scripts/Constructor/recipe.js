@@ -42,7 +42,7 @@ export class Recipe {
         let card = `
            <article class="card">
                 <div class="card_img">
-                    <img src="https://source.unsplash.com/random/400x200/?sig=${this.id}" alt="${this.name}" >
+                    <!--<img src="https://source.unsplash.com/random/400x200/?sig=${this.id}" alt="${this.name}" >-->
                 </div>
                 <div class="card_info">
                     <div class="top_card_info">
