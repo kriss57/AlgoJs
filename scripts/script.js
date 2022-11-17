@@ -17,6 +17,7 @@ const searchInput = document.getElementById('global-search')
 searchInput.addEventListener('input', (e) => {
 
     if (e.target.value.length >= 3) {
+        let t0 = performance.now()
         main.search(e)
             .then(() => {
                 console.log('dans scrpt.js main.search');
@@ -24,6 +25,9 @@ searchInput.addEventListener('input', (e) => {
                 main.displayRecipeCard()
             })
             .catch(err => console.log(err))
+        let t1 = performance.now()
+        console.log('l appel de main.search() a demandé' + (t1 - t0) + 'millisecondes')
+
     } else {
         main.resetStart()
     }
@@ -44,6 +48,7 @@ const appareilsTags = document.getElementById('appareils-list')
 const ustensilsTags = document.getElementById('ustensiles-list')
 
 ingredientsTags.addEventListener('click', (e) => {
+    displayBubbleTags(e.target.innerText)
     main.searchKeyword(e);
     main.displayAlltags()
     main.displayRecipeCard()
@@ -58,3 +63,6 @@ ustensilsTags.addEventListener('click', (e) => {
     main.displayAlltags()
     main.displayRecipeCard()
 })
+
+//Ajout des listener sur les bubble tag
+let t0 = performance.now()

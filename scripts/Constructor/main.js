@@ -8,11 +8,11 @@ export class Main extends Engine {
     // --conteneur des resultats (init et/ou après recherche)
     result = []
     // --récup ustensils
-    ustensils = []                  //-----> USTENSILS
+    ustensils = []
     // --array ingrédients
-    ingredients = []                //-----> INGREDIENTS
+    ingredients = []
     // --array appareils
-    appliances = []                 //-----> APPAREILS
+    appliances = []
 
 
     /** Start */
@@ -39,12 +39,14 @@ export class Main extends Engine {
     // 1 Ici le moteur de recherche (en 2 version) qui va "réécrire" this.result
     // 2 Appel des extrudeurs
     async search(e) {
+
         //....... ça veut dir qu'ici on va réécrire le this.result
         this.result = this.engine_search(e) //-------> de la class engin - là où sont les algos
         // reset extrudeurs
         this.resetExtrudeurs()
         // on lance les extrudeurs
         this.exctrudeurs()
+
         return true
     }
 

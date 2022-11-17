@@ -1,8 +1,6 @@
 import { Api } from '../Api/api.js'
 //import { Main } from './main.js'
 
-
-
 export class Engine extends Api {
 
     allRecipes = []
@@ -13,6 +11,10 @@ export class Engine extends Api {
     newAllUstensils = []
 
     newArray = []
+    //--- array de mot-clé
+    arrKeyWordIngredients = []
+    //arrKeyWordAppareils = []
+    //arrKeyWordUstensils = []
 
     async getAll() {
         console.log('dans getall');
@@ -68,9 +70,9 @@ export class Engine extends Api {
 
     engine_search_tag(e) {
         let listName = (e.target.parentNode.nextSibling.nextSibling.childNodes[1])
-        //ingredients  a prendre dans le dom a l'instanté
+
         console.log('dans engine_search_tag');
-        console.log(this.ingredients);
+
         this.newAllIngredients = [] // NEW TAB
         this.newAllAppareils = []
         this.newAllUstensils = []
@@ -110,15 +112,22 @@ export class Engine extends Api {
 
     search_by_keyword(e) { // pour le moment ne gere que l'ajout
 
+
         // pointer dom
         let selectedFilter = e.target.innerText
         let displayedArray = this.result.recipes
+
+        // stock value dans array 
+        this.arrKeyWordIngredients.push(selectedFilter.toLowerCase())
 
         console.log(this.result);
         // test change this.allRecipes.recipes PAR this.result.recipes
         this.newAllRecipes = { recipes: [] }
 
         if (e.target.parentNode.id === 'ingredients-list') {
+            // stock value dans array 
+            //this.arrKeyWordIngredients.push(selectedFilter.toLowerCase())
+
             for (let i = 0; i < displayedArray.length; i++) {
                 for (let j = 0; j < displayedArray[i].ingredients.length; j++) {
                     if (displayedArray[i].ingredients[j].ingredient.toLowerCase().includes(selectedFilter.toLowerCase())) {
@@ -126,28 +135,24 @@ export class Engine extends Api {
                     }
                 }
             }
-            console.log(this.newAllRecipes);
-            // efface les cartes
-            this.resetDisplayer()
-            // return un tableau de recette
-            return this.newAllRecipes
         }
+
         if (e.target.parentNode.id === 'appareils-list') {
-            console.log('appareils-list');
-            console.log(selectedFilter);
+            // stock value dans array 
+            //this.arrKeyWordAppareils.push(selectedFilter.toLowerCase())
+
             displayedArray.find(el => {
                 if (el.appliance.toLowerCase().includes(selectedFilter.toLowerCase())) {
                     this.newAllRecipes.recipes.push(el)
                 }
 
             })
-            console.log(this.newAllRecipes);
-            // efface les cartes
-            this.resetDisplayer()
-            // return un tableau de recette
-            return this.newAllRecipes
         }
+
         if (e.target.parentNode.id === 'ustensiles-list') {
+            // stock value dans array 
+            //this.arrKeyWordUstensils.push(selectedFilter.toLowerCase())
+            // ajout
             for (let i = 0; i < displayedArray.length; i++) {
                 for (let j = 0; j < displayedArray[i].ustensils.length; j++) {
                     if (displayedArray[i].ustensils[j].toLowerCase().includes(selectedFilter.toLowerCase())) {
@@ -155,12 +160,114 @@ export class Engine extends Api {
                     }
                 }
             }
-            console.log(this.newAllRecipes);
-            // efface les cartes
-            this.resetDisplayer()
-            // return un tableau de recette
-            return this.newAllRecipes
         }
+        //-------------------------------------------------
+        //------- gestion de suppression ---- mise en ecoute
+        const bubbleTag = document.querySelectorAll('.bubble_closed')
+        for (let bob of bubbleTag) {
+
+            bob.addEventListener('click', (e) => {
+                console.log(bob);
+                console.log(e.target.parentNode);
+                let bubble = e.target.parentNode
+                // recup nom du tag a delete
+                let nameTag = e.target.parentNode.children[0].innerText.toLowerCase()
+                console.log(nameTag);
+                // efface la bubble du dom
+                bubble.remove()
+                // supprime le nom du tableau
+                this.deletedTagInArray(nameTag)
+                // relance une recherche
+                this.search_by_keywordOnDelete(this.arrKeyWordIngredients)
+            })
+        }
+        // bubbleTag.forEach(bubble => {
+        //     bubble.addEventListener('click', (e) => {
+        //         console.log(e.target.parentNode);
+        //         let bubble = e.target.parentNode
+        //         // recup nom du tag a delete
+        //         let nameTag = e.target.parentNode.children[0].innerText.toLowerCase()
+        //         console.log(nameTag);
+        //         // efface la bubble du dom
+        //         bubble.remove()
+        //         // supprime le nom du tableau
+        //         this.deletedTagInArray(nameTag)
+
+        //         this.search_by_keywordOnDelete(this.arrKeyWordIngredients)
+        //     })
+        // })
+
+        //-----------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------
+
+        // efface les cartes
+        this.resetDisplayer()
+        // return un tableau de recette
+        return this.newAllRecipes
+    }
+
+    search_by_keywordOnDelete(arr) {
+        //console.log(this.arrKeyWord);
+        //-------------------------------------------------------ESSAYE AVEC ARRAY DES 50 recettes
+        // -------------------------------------------- ok pour avec arr 50 recette A faire enlever les doublon avant d'envoyer dans Main
+        let displayedArray = this.result.recipes
+        console.log(arr);
+        console.log(this.result);
+        // test change this.allRecipes.recipes PAR this.result.recipes
+        this.new = { recipes: [] }
+        // array de 50 recettes
+        let allRecipes = this.allRecipes.recipes
+        console.log(this.allRecipes.recipes);
+
+        for (let i = 0; i < arr.length; i++) {
+            console.log(arr[i]);
+            console.log(arr);
+            // pointer dom
+            let selectedFilter = arr[i]
+
+            // recherche par ingredients
+            for (let i = 0; i < allRecipes.length; i++) {
+                for (let j = 0; j < allRecipes[i].ingredients.length; j++) {
+                    if (allRecipes[i].ingredients[j].ingredient.toLowerCase().includes(selectedFilter.toLowerCase())) {
+                        this.newAllRecipes.recipes.push(allRecipes[i])
+                    }
+                }
+            }
+
+            // // recherche par Appareil
+            // displayedArray.find(el => {
+            //     if (el.appliance.toLowerCase().includes(selectedFilter.toLowerCase())) {
+            //         this.newAllRecipes.recipes.push(el)
+            //     }
+
+            // })
+
+
+            // // recherche par ustensils
+            // for (let i = 0; i < displayedArray.length; i++) {
+            //     for (let j = 0; j < displayedArray[i].ustensils.length; j++) {
+            //         if (displayedArray[i].ustensils[j].toLowerCase().includes(selectedFilter.toLowerCase())) {
+            //             this.newAllRecipes.recipes.push(displayedArray[i])
+            //         }
+            //     }
+            // }
+
+        }
+        console.log(this.newAllRecipes);
+        // efface les cartes
+        //this.resetDisplayer()
+        // return un tableau de recette
+        //return this.newAllRecipes
+    }
+
+    deletedTagInArray(nameTag) {
+        let index = this.arrKeyWordIngredients.indexOf(nameTag)
+        this.arrKeyWordIngredients.filter(el => {
+            if (el.includes(nameTag)) {
+                this.arrKeyWordIngredients.splice(index)
+            }
+        })
+        console.log(this.arrKeyWordIngredients);
     }
 
 }

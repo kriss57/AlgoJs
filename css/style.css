@@ -260,11 +260,15 @@ ul li {
   text-overflow: ellipsis;
 }
 /* ---- Bubble tags ---- */
+.bubble_container {
+  display: flex;
+}
 .bubble_tag {
   height: 50px;
   width: 100px;
   background-color: #3282f7;
   margin-bottom: 25px;
+  margin-right: 10px;
   border-radius: 5px;
   display: flex;
   align-items: center;
