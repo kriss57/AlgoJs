@@ -17,6 +17,7 @@ const searchInput = document.getElementById('global-search')
 searchInput.addEventListener('input', (e) => {
 
     if (e.target.value.length >= 3) {
+        let t0 = performance.now()
         main.search(e)
             .then(() => {
                 console.log('dans scrpt.js main.search');
@@ -24,6 +25,9 @@ searchInput.addEventListener('input', (e) => {
                 main.displayRecipeCard()
             })
             .catch(err => console.log(err))
+        let t1 = performance.now()
+        console.log('l appel de main.search() a demandé ' + (t1 - t0) + 'millisecondes');
+
     } else {
         main.resetStart()
     }
