@@ -57,7 +57,7 @@ export class Engine extends Api {
         })
 
         let arr = this.newAllRecipes.recipes.concat(nameSearch, descSearch, ing)
-        console.log(arr);
+
 
         // //Enleve les doublons du tableau
         let recipes = Array.from(new Set(arr))
