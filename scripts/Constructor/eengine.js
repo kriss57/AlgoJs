@@ -9,7 +9,7 @@ export class Engine extends Api {
     newAllIngredients = []
     newAllAppareils = []
     newAllUstensils = []
-
+    //--- array de liste tag apres recherche
     newArray = []
 
     //--- array de mot-clé
