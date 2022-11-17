@@ -36,7 +36,11 @@ export class Engine extends Api {
 
     }
 
-
+    /**
+     * Moteur de recherche principal
+     * @param {*} e 
+     * @returns Array
+     */
     engine_search(e) {
         // les algo
 
@@ -67,7 +71,11 @@ export class Engine extends Api {
         return this.newAllRecipes
 
     }
-
+    /**
+     * Moteur de recherche des listes de tags
+     * @param {*} e 
+     * @returns Array
+     */
     engine_search_tag(e) {
         let listName = (e.target.parentNode.nextSibling.nextSibling.childNodes[1])
 
@@ -109,7 +117,11 @@ export class Engine extends Api {
         return this.newArray // ENVOI NEW TAb
 
     }
-
+    /**
+     * Recherche par mot clé 
+     * @param {Events} e 
+     * @returns Array
+     */
     search_by_keyword(e) { // pour le moment ne gere que l'ajout
 
 
@@ -161,13 +173,11 @@ export class Engine extends Api {
                 }
             }
         }
-        //-------------------------------------------------
+        //----TEST---------------------------------------------
         //------- gestion de suppression ---- mise en ecoute
         const bubbleTag = document.querySelectorAll('.bubble_closed')
-        for (let bob of bubbleTag) {
-
-            bob.addEventListener('click', (e) => {
-                console.log(bob);
+        bubbleTag.forEach(bubble => {
+            bubble.addEventListener('click', (e) => {
                 console.log(e.target.parentNode);
                 let bubble = e.target.parentNode
                 // recup nom du tag a delete
@@ -180,23 +190,7 @@ export class Engine extends Api {
                 // relance une recherche
                 this.search_by_keywordOnDelete(this.arrKeyWordIngredients)
             })
-        }
-        // bubbleTag.forEach(bubble => {
-        //     bubble.addEventListener('click', (e) => {
-        //         console.log(e.target.parentNode);
-        //         let bubble = e.target.parentNode
-        //         // recup nom du tag a delete
-        //         let nameTag = e.target.parentNode.children[0].innerText.toLowerCase()
-        //         console.log(nameTag);
-        //         // efface la bubble du dom
-        //         bubble.remove()
-        //         // supprime le nom du tableau
-        //         this.deletedTagInArray(nameTag)
-
-        //         this.search_by_keywordOnDelete(this.arrKeyWordIngredients)
-        //     })
-        // })
-
+        })
         //-----------------------------------------------------------------------------
         //-----------------------------------------------------------------------------
 
@@ -206,23 +200,20 @@ export class Engine extends Api {
         return this.newAllRecipes
     }
 
+    /**
+     * recherche par mot clé a la suppréssion du tag
+     * @param {array} arr 
+     * @returns array
+     */
     search_by_keywordOnDelete(arr) {
-        //console.log(this.arrKeyWord);
-        //-------------------------------------------------------ESSAYE AVEC ARRAY DES 50 recettes
-        // -------------------------------------------- ok pour avec arr 50 recette A faire enlever les doublon avant d'envoyer dans Main
-        let displayedArray = this.result.recipes
-        console.log(arr);
-        console.log(this.result);
-        // test change this.allRecipes.recipes PAR this.result.recipes
-        this.new = { recipes: [] }
-        // array de 50 recettes
+
+        //this.new = { recipes: [] }
+        // Ici on récupere l'array de 50 recettes
         let allRecipes = this.allRecipes.recipes
         console.log(this.allRecipes.recipes);
 
         for (let i = 0; i < arr.length; i++) {
-            console.log(arr[i]);
-            console.log(arr);
-            // pointer dom
+
             let selectedFilter = arr[i]
 
             // recherche par ingredients
@@ -253,13 +244,20 @@ export class Engine extends Api {
             // }
 
         }
+        let recipes = Array.from(new Set(this.newAllRecipes.recipes))
+        console.log(recipes);
+        //Convert en objet avant l'envoi
+        this.newAllRecipes = { recipes }
         console.log(this.newAllRecipes);
-        // efface les cartes
-        //this.resetDisplayer()
         // return un tableau de recette
-        //return this.newAllRecipes
+        return this.newAllRecipes
+
     }
 
+    /**
+     * suprression du mot clé dans l'array de mot clé
+     * @param {string} nameTag 
+     */
     deletedTagInArray(nameTag) {
         let index = this.arrKeyWordIngredients.indexOf(nameTag)
         this.arrKeyWordIngredients.filter(el => {
