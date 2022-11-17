@@ -11,6 +11,7 @@ export class Engine extends Api {
     newAllUstensils = []
 
     newArray = []
+
     //--- array de mot-clé
     arrKeyWordIngredients = []
     //arrKeyWordAppareils = []
@@ -86,7 +87,7 @@ export class Engine extends Api {
         this.newAllUstensils = []
         this.newArray = []
         // cheked tout les ingredient
-        // **** voir si boucle for ou map ou.....
+        // **** voir si boucle for ou map 
         let ingredientsList = this.ingredients // API TAB
         let appareilsList = this.appliances
         let ustensilsList = this.ustensils
