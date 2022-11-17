@@ -64,8 +64,6 @@ export class Engine extends Api {
         let recipes = Array.from(new Set(this.newAllRecipes.recipes))
         //Convert en objet avant l'envoi
         this.newAllRecipes = { recipes }
-        console.log('dans Recherche principal');
-        console.log(this.newAllRecipes);
         // return un tableau de recette
         return this.newAllRecipes
 
