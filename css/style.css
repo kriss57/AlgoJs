@@ -263,10 +263,32 @@ ul li {
 .bubble_container {
   display: flex;
 }
-.bubble_tag {
+.bubble_tag_ingredients {
   height: 50px;
   width: 100px;
   background-color: #3282f7;
+  margin-bottom: 25px;
+  margin-right: 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.bubble_tag_appareils {
+  height: 50px;
+  width: 100px;
+  background-color: #68d9a4;
+  margin-bottom: 25px;
+  margin-right: 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.bubble_tag_ustensiles {
+  height: 50px;
+  width: 100px;
+  background-color: #ed6454;
   margin-bottom: 25px;
   margin-right: 10px;
   border-radius: 5px;
