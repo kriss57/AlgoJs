@@ -13,7 +13,7 @@ export class Engine extends Api {
     newArray = []
 
     //--- array de mot-clé
-    arrKeyWordIngredients = []
+    arrKeyWord = []
     //arrKeyWordAppareils = []
     //arrKeyWordUstensils = []
 
@@ -131,7 +131,7 @@ export class Engine extends Api {
         let displayedArray = this.result.recipes
 
         // stock value dans array 
-        this.arrKeyWordIngredients.push(selectedFilter.toLowerCase())
+        this.arrKeyWord.push(selectedFilter.toLowerCase())
 
         console.log(this.result);
         // test change this.allRecipes.recipes PAR this.result.recipes
@@ -174,26 +174,6 @@ export class Engine extends Api {
                 }
             }
         }
-        //----TEST---------------------------------------------
-        //------- gestion de suppression ---- mise en ecoute
-        const bubbleTag = document.querySelectorAll('.bubble_closed')
-        bubbleTag.forEach(bubble => {
-            bubble.addEventListener('click', (e) => {
-                console.log(e.target.parentNode);
-                let bubble = e.target.parentNode
-                // recup nom du tag a delete
-                let nameTag = e.target.parentNode.children[0].innerText.toLowerCase()
-                console.log(nameTag);
-                // efface la bubble du dom
-                bubble.remove()
-                // supprime le nom du tableau
-                this.deletedTagInArray(nameTag)
-                // relance une recherche
-                this.search_by_keywordOnDelete(this.arrKeyWordIngredients)
-            })
-        })
-        //-----------------------------------------------------------------------------
-        //-----------------------------------------------------------------------------
 
         // efface les cartes
         this.resetDisplayer()
@@ -201,50 +181,74 @@ export class Engine extends Api {
         return this.newAllRecipes
     }
 
+
+
+
+    listener_keywordOnDelete(e) {
+
+        let bubble = e.target.parentNode
+        // recup nom du tag a delete
+        let nameTag = e.target.parentNode.children[0].innerText.toLowerCase()
+        // efface la bubble du dom
+        bubble.remove()
+        // supprime le nom du tableau
+        this.deletedTagInArray(nameTag)
+        // relance une recherche
+        return this.search_by_keywordOnDelete()
+    }
+
     /**
      * recherche par mot clé a la suppréssion du tag
      * @param {array} arr 
      * @returns array
      */
-    search_by_keywordOnDelete(arr) {
-
+    search_by_keywordOnDelete() {
         //this.new = { recipes: [] }
         // Ici on récupere l'array de 50 recettes
         let allRecipes = this.allRecipes.recipes
-        console.log(this.allRecipes.recipes);
 
-        for (let i = 0; i < arr.length; i++) {
+        //retourne toute les recettes mais il faut encore traiter l'input !!!!!!
+        console.log(this.arrKeyWord.length);
+        if (this.arrKeyWord.length === 0) {
+            console.log(this.allRecipes);
+            return this.allRecipes
+        } else {
+            for (let i = 0; i < this.arrKeyWord.length; i++) {
 
-            let selectedFilter = arr[i]
+                let selectedFilter = this.arrKeyWord[i]
 
-            // recherche par ingredients
-            for (let i = 0; i < allRecipes.length; i++) {
-                for (let j = 0; j < allRecipes[i].ingredients.length; j++) {
-                    if (allRecipes[i].ingredients[j].ingredient.toLowerCase().includes(selectedFilter.toLowerCase())) {
-                        this.newAllRecipes.recipes.push(allRecipes[i])
+                // recherche par ingredients
+                for (let i = 0; i < allRecipes.length; i++) {
+                    for (let j = 0; j < allRecipes[i].ingredients.length; j++) {
+                        if (allRecipes[i].ingredients[j].ingredient.toLowerCase().includes(selectedFilter.toLowerCase())) {
+                            this.newAllRecipes.recipes.push(allRecipes[i])
+                        }
                     }
                 }
+
+
+                // recherche par Appareil
+                allRecipes.find(el => {
+                    if (el.appliance.toLowerCase().includes(selectedFilter.toLowerCase())) {
+                        this.newAllRecipes.recipes.push(el)
+                    }
+
+                })
+
+
+                // recherche par ustensils
+                for (let i = 0; i < allRecipes.length; i++) {
+                    for (let j = 0; j < allRecipes[i].ustensils.length; j++) {
+                        if (allRecipes[i].ustensils[j].toLowerCase().includes(selectedFilter.toLowerCase())) {
+                            this.newAllRecipes.recipes.push(allRecipes[i])
+                        }
+                    }
+                }
+
             }
-
-            // // recherche par Appareil
-            // displayedArray.find(el => {
-            //     if (el.appliance.toLowerCase().includes(selectedFilter.toLowerCase())) {
-            //         this.newAllRecipes.recipes.push(el)
-            //     }
-
-            // })
-
-
-            // // recherche par ustensils
-            // for (let i = 0; i < displayedArray.length; i++) {
-            //     for (let j = 0; j < displayedArray[i].ustensils.length; j++) {
-            //         if (displayedArray[i].ustensils[j].toLowerCase().includes(selectedFilter.toLowerCase())) {
-            //             this.newAllRecipes.recipes.push(displayedArray[i])
-            //         }
-            //     }
-            // }
-
         }
+
+
         let recipes = Array.from(new Set(this.newAllRecipes.recipes))
         console.log(recipes);
         //Convert en objet avant l'envoi
@@ -260,13 +264,15 @@ export class Engine extends Api {
      * @param {string} nameTag 
      */
     deletedTagInArray(nameTag) {
-        let index = this.arrKeyWordIngredients.indexOf(nameTag)
-        this.arrKeyWordIngredients.filter(el => {
-            if (el.includes(nameTag)) {
-                this.arrKeyWordIngredients.splice(index)
-            }
-        })
-        console.log(this.arrKeyWordIngredients);
+        //let index = this.arrKeyWord.indexOf(nameTag)
+
+        const filterednameTag = this.arrKeyWord.filter((name) => name !== nameTag)
+
+        this.arrKeyWord = filterednameTag
+
+        console.log(this.arrKeyWord);
+
+
     }
 
 }
