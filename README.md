@@ -2,8 +2,6 @@
 
 ## Développez un algorithme de recherche en javascript
 
-![Logo](/assets/icons/logo.png)
-
 ## Tech
 
 [![forthebadge](https://forthebadge.com/images/badges/uses-html.svg)](https://forthebadge.com)
