@@ -107,7 +107,10 @@ export class Main extends Engine {
     exctrudeurs() {
         console.log('dans début exrtrudeur');
         console.log(this.result);
+        let reg = /[\W]/g
         for (let i = 0; i < this.result.recipes.length; i++) {
+            // verif accent =>   console.log(reg.test(this.result.recipes[i].ustensils));
+            console.log(this.result.recipes[i].ustensils);
             // alimente tab ustensils
             this.ustensils = [...new Set([...this.ustensils, ...this.result.recipes[i].ustensils.map((u) => u.toLowerCase())])].sort()
             // alimente tab appareils
@@ -116,6 +119,8 @@ export class Main extends Engine {
             // alimente tab ingrédients
             let objectIngredients = this.result.recipes[i].ingredients
             for (let ing of objectIngredients) {
+                //let ingredient = ing.ingredient.endsWith('s') ? ing.ingredient.slice(0, -1) : ing.ingredient
+                //console.log(ingredient);
                 this.ingredients = [...new Set([...this.ingredients, ing.ingredient.toLowerCase()])].sort()
 
             }
@@ -204,10 +209,24 @@ export class Main extends Engine {
         }
 
     }
-
+    /**
+     * 
+     * @param {*} e 
+     * @returns boolean
+     */
     searchKeyword(e) {
 
         this.result = this.search_by_keyword(e)
+        // reset extrudeurs
+        this.resetExtrudeurs()
+        // on lance les extrudeurs
+        this.exctrudeurs()
+        return true
+    }
+
+    deletedKeyword(e) {
+
+        this.result = this.listener_keywordOnDelete(e)
         // reset extrudeurs
         this.resetExtrudeurs()
         // on lance les extrudeurs
