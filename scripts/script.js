@@ -48,17 +48,39 @@ const appareilsTags = document.getElementById('appareils-list')
 const ustensilsTags = document.getElementById('ustensiles-list')
 
 ingredientsTags.addEventListener('click', (e) => {
+    displayBubbleTags(e)
+    listenerDeletedKeyWord()
     main.searchKeyword(e);
     main.displayAlltags()
     main.displayRecipeCard()
+
 })
 appareilsTags.addEventListener('click', (e) => {
+    displayBubbleTags(e)
+    listenerDeletedKeyWord()
     main.searchKeyword(e);
     main.displayAlltags()
     main.displayRecipeCard()
 })
 ustensilsTags.addEventListener('click', (e) => {
+    displayBubbleTags(e)
+    listenerDeletedKeyWord()
     main.searchKeyword(e);
     main.displayAlltags()
     main.displayRecipeCard()
 })
+
+/**
+ * Mise en écoute pour la suppréssion d'un tag
+ */
+const listenerDeletedKeyWord = () => {
+    const bubbleTag = document.querySelectorAll('.bubble_closed')
+    bubbleTag.forEach(bubble => {
+        bubble.addEventListener('click', (e) => {
+            main.deletedKeyword(e)
+            main.resetDisplayer()
+            main.displayAlltags()
+            main.displayRecipeCard()
+        })
+    })
+}

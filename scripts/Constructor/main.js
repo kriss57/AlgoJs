@@ -213,4 +213,19 @@ export class Main extends Engine {
         return true
     }
 
+    /**
+     * 
+     * @param {Event} e 
+     * @returns true
+     */
+    deletedKeyword(e) {
+
+        this.result = this.listener_keywordOnDelete(e)
+        // reset extrudeurs
+        this.resetExtrudeurs()
+        // on lance les extrudeurs
+        this.exctrudeurs()
+        return true
+    }
+
 }

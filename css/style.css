@@ -170,7 +170,7 @@ ul li {
 .list_container {
   display: flex;
   border-radius: 5px;
-  padding: auto;
+  padding: 10px;
 }
 #ingredients-list {
   overflow-y: scroll;
@@ -260,11 +260,37 @@ ul li {
   text-overflow: ellipsis;
 }
 /* ---- Bubble tags ---- */
-.bubble_tag {
+.bubble_container {
+  display: flex;
+}
+.bubble_tag_ingredients {
   height: 50px;
   width: 100px;
   background-color: #3282f7;
   margin-bottom: 25px;
+  margin-right: 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.bubble_tag_appareils {
+  height: 50px;
+  width: 100px;
+  background-color: #68d9a4;
+  margin-bottom: 25px;
+  margin-right: 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.bubble_tag_ustensiles {
+  height: 50px;
+  width: 100px;
+  background-color: #ed6454;
+  margin-bottom: 25px;
+  margin-right: 10px;
   border-radius: 5px;
   display: flex;
   align-items: center;
@@ -277,4 +303,8 @@ ul li {
 .bubble_text {
   color: white;
   font-size: small;
+}
+/* ---- Placeholder color --- */
+.placeholder_color::-webkit-input-placeholder {
+  color: #cdd6db;
 }
