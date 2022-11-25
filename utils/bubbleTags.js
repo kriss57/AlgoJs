@@ -4,6 +4,10 @@
 const bubbleContainer = document.querySelector('.bubble_container')
 const deleteBtn = document.querySelectorAll('.bubble_closed')
 
+/**
+ * Affiche les bulles de tags
+ * @param {Event} e 
+ */
 const displayBubbleTags = (e) => {
 
     // pointeur dom pour gestion dropdown
@@ -43,14 +47,3 @@ const displayBubbleTags = (e) => {
 
 }
 
-// ------------------------------------------------------------------------ //
-// ---- A faire --- n'existe pas ici ---- traitement de suppréssion des tags
-const deleteBubbleTags = () => {
-    console.log(deleteBtn);
-    deleteBtn.forEach(btn => {
-        console.log(btn);
-        btn.addEventListener('click', (e) => {
-            console.log(e);
-        })
-    })
-}

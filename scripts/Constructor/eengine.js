@@ -11,11 +11,9 @@ export class Engine extends Api {
     newAllUstensils = []
     //--- array de liste tag apres recherche
     newArray = []
-
     //--- array de mot-clé
     arrKeyWord = []
-    //arrKeyWordAppareils = []
-    //arrKeyWordUstensils = []
+
 
     async getAll() {
         console.log('dans getall');
@@ -25,11 +23,9 @@ export class Engine extends Api {
 
     resetDisplayer() {
         // --- pointer Dom
-        console.log('dans reset displayer');
         const cardContaineur = document.querySelector('.card_container')
         const allListContainer = document.getElementsByTagName('ul')
         cardContaineur.innerHTML = ''
-        // A VOIR ********************************
         for (let list of allListContainer) {
             console.log(list);
             list.innerHTML = ''
@@ -86,8 +82,7 @@ export class Engine extends Api {
         this.newAllAppareils = []
         this.newAllUstensils = []
         this.newArray = []
-        // cheked tout les ingredient
-        // **** voir si boucle for ou map 
+
         let ingredientsList = this.ingredients // API TAB
         let appareilsList = this.appliances
         let ustensilsList = this.ustensils
@@ -114,7 +109,6 @@ export class Engine extends Api {
             }
         }
         // retourné le nouveau tableaux
-        console.log(this.newArray);
         return this.newArray // ENVOI NEW TAb
 
     }
@@ -139,8 +133,6 @@ export class Engine extends Api {
 
         if (e.target.parentNode.id === 'ingredients-list') {
             // stock value dans array 
-            //this.arrKeyWordIngredients.push(selectedFilter.toLowerCase())
-
             for (let i = 0; i < displayedArray.length; i++) {
                 for (let j = 0; j < displayedArray[i].ingredients.length; j++) {
                     if (displayedArray[i].ingredients[j].ingredient.toLowerCase().includes(selectedFilter.toLowerCase())) {
@@ -152,8 +144,6 @@ export class Engine extends Api {
 
         if (e.target.parentNode.id === 'appareils-list') {
             // stock value dans array 
-            //this.arrKeyWordAppareils.push(selectedFilter.toLowerCase())
-
             displayedArray.find(el => {
                 if (el.appliance.toLowerCase().includes(selectedFilter.toLowerCase())) {
                     this.newAllRecipes.recipes.push(el)
@@ -164,8 +154,6 @@ export class Engine extends Api {
 
         if (e.target.parentNode.id === 'ustensiles-list') {
             // stock value dans array 
-            //this.arrKeyWordUstensils.push(selectedFilter.toLowerCase())
-            // ajout
             for (let i = 0; i < displayedArray.length; i++) {
                 for (let j = 0; j < displayedArray[i].ustensils.length; j++) {
                     if (displayedArray[i].ustensils[j].toLowerCase().includes(selectedFilter.toLowerCase())) {
@@ -250,10 +238,8 @@ export class Engine extends Api {
 
 
         let recipes = Array.from(new Set(this.newAllRecipes.recipes))
-        console.log(recipes);
         //Convert en objet avant l'envoi
         this.newAllRecipes = { recipes }
-        console.log(this.newAllRecipes);
         // return un tableau de recette
         return this.newAllRecipes
 
@@ -264,7 +250,6 @@ export class Engine extends Api {
      * @param {string} nameTag 
      */
     deletedTagInArray(nameTag) {
-        //let index = this.arrKeyWord.indexOf(nameTag)
 
         const filterednameTag = this.arrKeyWord.filter((name) => name !== nameTag)
 

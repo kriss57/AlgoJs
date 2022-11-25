@@ -19,17 +19,15 @@ export class Main extends Engine {
     async start() {
         // 1 récupère tous les produits => this.result
         // 2 appel des extrudeurs
-        console.log('dans main start()');
+
         // on recupere array recettes (toutes les recetttes c'est le start)
         this.result = await this.getAll()//-----> RECETTES COMPLETES venant de la class engine
-        console.log(this.result);
         // on lance les extrudeurs
         this.exctrudeurs()
 
     }
 
     resetExtrudeurs() {
-        console.log('resetExtrudeur vide les 3 tab');
         this.ustensils = []
         this.ingredients = []
         this.appliances = []
@@ -50,6 +48,10 @@ export class Main extends Engine {
         return true
     }
 
+    /**
+     * Actualisation des arrays de tags
+     * @param {event} e 
+     */
     async searchTag(e) {
         console.log('dans searchTag');
         let listName = (e.target.parentNode.nextSibling.nextSibling.childNodes[1]);
@@ -64,7 +66,6 @@ export class Main extends Engine {
         if (listName.id == 'ustensiles-list') {
             this.ustensils = this.engine_search_tag(e)
         }
-        console.log(this.ingredients); // ici tableau reactif
 
         // reset extrudeurs
         //this.resetExtrudeurs()
@@ -74,7 +75,7 @@ export class Main extends Engine {
         // on lance les extrudeurs
         this.exctrudeurs()
         //return true
-        console.log(this.ingredients); // ici tableau complet apres extrudeur
+
 
     }
 
@@ -83,7 +84,6 @@ export class Main extends Engine {
      * @param {HTML élément} listName 
      */
     resetListTag(listName) {
-        console.log('dans reset affichage liste tag');
         listName.innerHTML = ""
     }
     /**
@@ -91,7 +91,6 @@ export class Main extends Engine {
      * @param {HTML élément} listName 
      */
     displaysListSelected(listName) {
-        console.log('dans affichage liste tag');
         if (listName.id == 'ingredients-list') {
             this.displayIngredientsList()
         }
@@ -103,14 +102,13 @@ export class Main extends Engine {
         }
     }
 
-    /** Extrudeur */
+    /**
+     * extrudeur 
+     * retourne les 3 arrays trié
+     */
     exctrudeurs() {
-        console.log('dans début exrtrudeur');
-        console.log(this.result);
-        let reg = /[\W]/g
+
         for (let i = 0; i < this.result.recipes.length; i++) {
-            // verif accent =>   console.log(reg.test(this.result.recipes[i].ustensils));
-            console.log(this.result.recipes[i].ustensils);
             // alimente tab ustensils
             this.ustensils = [...new Set([...this.ustensils, ...this.result.recipes[i].ustensils.map((u) => u.toLowerCase())])].sort()
             // alimente tab appareils
@@ -119,18 +117,15 @@ export class Main extends Engine {
             // alimente tab ingrédients
             let objectIngredients = this.result.recipes[i].ingredients
             for (let ing of objectIngredients) {
-                //let ingredient = ing.ingredient.endsWith('s') ? ing.ingredient.slice(0, -1) : ing.ingredient
-                //console.log(ingredient);
                 this.ingredients = [...new Set([...this.ingredients, ing.ingredient.toLowerCase()])].sort()
 
             }
         }
-        console.log('dans fin extrudeur retourne les 3 tableau trier api');
+
     }
 
     // Main caller for display tag
     displayAlltags() {
-        console.log('dans affichage des 3 liste de tag');
         this.displayUstensilsList()
         this.displayIngredientsList()
         this.displayAppliancesList()
@@ -138,7 +133,6 @@ export class Main extends Engine {
 
     //  Reset start after delete user input if < 3
     async resetStart() {
-        console.log('dans resetStart');
         await this.start()
         this.resetDisplayer()
         this.displayAlltags()
@@ -146,7 +140,6 @@ export class Main extends Engine {
     }
 
     resetStartTag(e) {
-        console.log('dans reset startTag'); ('')
         let listName = (e.target.parentNode.nextSibling.nextSibling.childNodes[1]);
         // reset la liste
         this.resetListTag(listName)
@@ -154,9 +147,10 @@ export class Main extends Engine {
         this.displaysListSelected(listName)
     }
 
-    /** Displayer tag */
+    /**
+     * Affiche la liste des ustensils
+     */
     displayUstensilsList() {
-        console.log('dans affichage liste ustensils api');
         const ustensilsContainer = document.getElementById('ustensiles-list')
         for (let i = 0; i < this.ustensils.length; i++) {
             const ustensilTemplate = `<li>${this.ustensils[i]}</li>`
@@ -164,7 +158,9 @@ export class Main extends Engine {
         }
 
     }
-
+    /**
+     * Affiche la liste des ingrédients
+     */
     displayIngredientsList() {
         console.log('dans affichage liste ingredient api');
         const ingredientsContainer = document.getElementById('ingredients-list')
@@ -174,7 +170,9 @@ export class Main extends Engine {
         }
 
     }
-
+    /**
+     * Affiche la liste des appareils
+     */
     displayAppliancesList() {
         console.log('dans affichage liste appliances api');
         const appliancesContainer = document.getElementById('appareils-list')
@@ -185,7 +183,9 @@ export class Main extends Engine {
 
     }
 
-
+    /**
+     * Affiche les cartes 
+     */
     displayRecipeCard() {
         console.log('dans displayCard');
         // --- pointer Dom
@@ -196,7 +196,7 @@ export class Main extends Engine {
 
         // render template  
         let forIndex = ''
-        let message = `<strong>Aucune recette ne correspond à votre critère... vous pouvez chercher << tarte au pommes >>, << poisson >>, etc. </strong>`
+        let message = `<strong>Aucune recette ne correspond à votre critère... vous pouvez chercher << tarte aux pommes >>, << poisson >>, etc. </strong>`
 
         recipesList.forEach(recipes => {
             let ingredientsArr = recipes.ingredients
@@ -211,8 +211,8 @@ export class Main extends Engine {
     }
     /**
      * 
-     * @param {*} e 
-     * @returns boolean
+     * @param {Event} e 
+     * @returns true
      */
     searchKeyword(e) {
 
@@ -223,7 +223,11 @@ export class Main extends Engine {
         this.exctrudeurs()
         return true
     }
-
+    /**
+     * 
+     * @param {Event} e 
+     * @returns true
+     */
     deletedKeyword(e) {
 
         this.result = this.listener_keywordOnDelete(e)

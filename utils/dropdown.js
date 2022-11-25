@@ -25,12 +25,25 @@ let isVisible = false
  * Ouverture et fermeture du menu de tri
  */
 const toggleDropdown = (container, dropdown, arrowBtn) => {
-    //listBottom.classList.toggle("isVisible")  // method toggle()
-    isVisible = !isVisible  // version ternere
+    let inputClicked = dropdown.childNodes[1].children[0]
+
+    isVisible = !isVisible
     isVisible ? container.classList.add("isVisible") : container.classList.remove("isVisible")
     isVisible ? dropdown.classList.add("resize") : dropdown.classList.remove("resize")
     isVisible ? arrowBtn.classList.add("rotate") : arrowBtn.classList.remove("rotate")
 
+    if (container.id == 'ingredients-container') {
+        isVisible ? inputClicked.placeholder = 'Rechercher un ingrédient' : inputClicked.placeholder = 'Ingrédients'
+        isVisible ? inputClicked.classList.add('placeholder_color') : inputClicked.classList.remove('placeholder_color')
+    }
+    if (container.id == 'appareils-container') {
+        isVisible ? inputClicked.placeholder = 'Rechercher un appareil' : inputClicked.placeholder = 'Appareils'
+        isVisible ? inputClicked.classList.add('placeholder_color') : inputClicked.classList.remove('placeholder_color')
+    }
+    if (container.id == 'ustensiles-container') {
+        isVisible ? inputClicked.placeholder = 'Rechercher un ustensile' : inputClicked.placeholder = 'Ustensiles'
+        isVisible ? inputClicked.classList.add('placeholder_color') : inputClicked.classList.remove('placeholder_color')
+    }
 }
 
 // ------------------------------------------
@@ -52,34 +65,29 @@ ustensilesBtn.addEventListener('click', (e) => {
     resetDropdown(appareilsDropdown, appareilsContainer, appareilsBtn)
 })
 
-
-// for (let i = 0; i < arrowBtn.length; i++) {
-//     arrowBtn[i].addEventListener('click', (e) => {
-//         console.log(e.target.parentNode.id);
-//         if (e.target.parentNode.id === 'ingredientsBtn') {
-//             toggleDropdown(ingredientsContainer, ingredientsDropdown, ingredientsBtn)
-//             resetDropdown(appareilsDropdown, appareilsContainer, appareilsBtn)
-//             resetDropdown(ustensilesDropdown, ustensilesContainer, ustensilesBtn)
-
-//         }
-//         if (e.target.parentNode.id === 'appareilsBtn') {
-//             toggleDropdown(appareilsContainer, appareilsDropdown, appareilsBtn)
-//             resetDropdown(ingredientsDropdown, ingredientsContainer, ingredientsBtn)
-//             resetDropdown(ustensilesDropdown, ustensilesContainer, ustensilesBtn)
-
-
-//         }
-//         if (e.target.parentNode.id === 'ustensilesBtn') {
-//             toggleDropdown(ustensilesContainer, ustensilesDropdown, ustensilesBtn)
-//             resetDropdown(ingredientsDropdown, ingredientsContainer, ingredientsBtn)
-//             resetDropdown(appareilsDropdown, appareilsContainer, appareilsBtn)
-//         }
-//     })
-// }
+/**
+ * 
+ * @param {HTMLElement} dropdown 
+ * @param {HTMLElement} container 
+ * @param {HTMLElement} arrowBtn 
+ */
 const resetDropdown = (dropdown, container, arrowBtn) => {
+    let inputClicked = dropdown.childNodes[1].children[0]
     dropdown.classList.remove("resize")
     container.classList.remove("isVisible")
     arrowBtn.classList.remove("rotate")
+    if (container.id == 'ingredients-container') {
+        inputClicked.placeholder = 'Ingrédients'
+        inputClicked.classList.remove('placeholder_color')
+    }
+    if (container.id == 'appareils-container') {
+        inputClicked.placeholder = 'Appareils'
+        inputClicked.classList.remove('placeholder_color')
+    }
+    if (container.id == 'ustensiles-container') {
+        inputClicked.placeholder = 'Ustensiles'
+        inputClicked.classList.remove('placeholder_color')
+    }
 }
 
 

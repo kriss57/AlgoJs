@@ -1,7 +1,6 @@
 import { Main } from './Constructor/main.js'
 
 
-console.log('dans script');
 let main = new Main()
 
 // A l'affichage récup all recipes
@@ -70,6 +69,9 @@ ustensilsTags.addEventListener('click', (e) => {
     main.displayRecipeCard()
 })
 
+/**
+ * Mise en écoute pour la suppréssion d'un tag
+ */
 const listenerDeletedKeyWord = () => {
     const bubbleTag = document.querySelectorAll('.bubble_closed')
     bubbleTag.forEach(bubble => {

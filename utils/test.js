@@ -1,3 +1,0 @@
-// --- Fonction test perf
-
-
